@@ -28,6 +28,6 @@ Each notebook reads its dataset from its own folder, and falls back to the Colab
 `sample_data` path when it is not there, so it runs both locally and in Google
 Colab without editing anything.
 
-## Authors
+## Author
 
-Jonathan Sancho Loaiza, Jennifer López Miranda, Magdaleno Gómez Díaz.
+Jonathan Sancho Loaiza — Computer Engineering, Instituto Tecnológico de Costa Rica.
