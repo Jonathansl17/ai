@@ -6,14 +6,12 @@ preparation, modeling, evaluation and deployment. Every notebook explains what
 each plot shows, why each decision was taken and what the resulting numbers mean,
 so the reasoning is readable and not only the code.
 
-Course: IC-6200 Inteligencia Artificial — Instituto Tecnológico de Costa Rica.
-
 ## Projects
 
 | Project | Algorithms | Dataset | Task |
 |---|---|---|---|
 | [Linear Regression](linear-regression) | Simple and multiple ordinary least squares | `insurance.csv`, `weatherAUS.csv` | Predict an insurance premium from BMI, and the minimum temperature of a day from weather variables |
-| [Decision Trees and Random Forests](decision-trees-and-random-forests) | Decision tree, random forest | `credit.csv` | Classify whether a credit applicant will repay or default |
+| [Decision Trees and Random Forests](decision-trees-and-random-forests) | Decision tree, random forest | `credit.csv`, `income_evaluation.csv` | Classify whether a credit applicant will repay or default, and whether a person earns more than 50 000 dollars a year |
 
 ## Running the notebooks
 
