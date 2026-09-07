@@ -8,3 +8,5 @@ scikit-learn
 statsmodels
 joblib
 jupyter
+scikit-image
+pillow

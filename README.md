@@ -14,7 +14,7 @@ so the reasoning is readable and not only the code.
 | [Decision Trees](decision-trees) | Decision tree with cost-based threshold selection | `credit.csv` | Classify whether a credit applicant will repay or default |
 | [Random Forests](random-forests) | Random forest of 300 trees, out-of-bag scoring | `income_evaluation.csv` | Classify whether a person earns more than 50 000 dollars a year |
 | [K Nearest Neighbours](k-nearest-neighbors) | K nearest neighbours with Manhattan distance | `glass.csv` | Identify the origin of a glass fragment from its refractive index and eight oxide percentages |
-| [Support Vector Machines](support-vector-machines) | Support vector machine with a radial basis kernel | `fetal_health.csv` | Classify a cardiotocograph trace as normal, suspect or pathological |
+| [Support Vector Machines](support-vector-machines) | Support vector machine with a radial basis kernel, on tabular features and on features built from images | `fetal_health.csv`, 7553 face photographs | Classify a cardiotocograph trace as normal, suspect or pathological, and decide whether the face in a photograph is wearing a mask |
 
 ## Running the notebooks
 
@@ -27,7 +27,9 @@ jupyter notebook
 
 Each notebook reads its dataset from its own folder, and falls back to the Colab
 `sample_data` path when it is not there, so it runs both locally and in Google
-Colab without editing anything.
+Colab without editing anything. The one image collection is too large for a git
+repository, so its notebook downloads and unpacks it on the first run and skips the
+download afterwards.
 
 ## Author
 

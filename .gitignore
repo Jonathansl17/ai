@@ -22,3 +22,8 @@ venv/
 .vscode/
 .idea/
 .DS_Store
+
+# Image datasets downloaded by the notebooks
+Mascarilla/
+mascarilla.zip
+mask_features_*.npz
