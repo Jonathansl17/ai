@@ -11,7 +11,8 @@ so the reasoning is readable and not only the code.
 | Project | Algorithms | Dataset | Task |
 |---|---|---|---|
 | [Linear Regression](linear-regression) | Simple and multiple ordinary least squares | `insurance.csv`, `weatherAUS.csv` | Predict an insurance premium from BMI, and the minimum temperature of a day from weather variables |
-| [Decision Trees and Random Forests](decision-trees-and-random-forests) | Decision tree, random forest | `credit.csv`, `income_evaluation.csv` | Classify whether a credit applicant will repay or default, and whether a person earns more than 50 000 dollars a year |
+| [Decision Trees](decision-trees) | Decision tree with cost-based threshold selection | `credit.csv` | Classify whether a credit applicant will repay or default |
+| [Random Forests](random-forests) | Random forest of 300 trees, out-of-bag scoring | `income_evaluation.csv` | Classify whether a person earns more than 50 000 dollars a year |
 | [K Nearest Neighbours](k-nearest-neighbors) | K nearest neighbours with Manhattan distance | `glass.csv` | Identify the origin of a glass fragment from its refractive index and eight oxide percentages |
 | [Support Vector Machines](support-vector-machines) | Support vector machine with a radial basis kernel | `fetal_health.csv` | Classify a cardiotocograph trace as normal, suspect or pathological |
 
