@@ -27,3 +27,8 @@ venv/
 Mascarilla/
 mascarilla.zip
 mask_features_*.npz
+beauty/
+
+# Keras models and checkpoints written by the CNN notebooks
+*.keras
+*.weights.h5

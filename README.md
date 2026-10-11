@@ -16,6 +16,7 @@ so the reasoning is readable and not only the code.
 | [K Nearest Neighbours](k-nearest-neighbors) | K nearest neighbours with Manhattan distance | `glass.csv` | Identify the origin of a glass fragment from its refractive index and eight oxide percentages |
 | [Support Vector Machines](support-vector-machines) | Support vector machine with a radial basis kernel | `fetal_health.csv` | Classify a cardiotocograph trace as normal, suspect or pathological |
 | [HOG and Colour Features with an SVM](hog-svm-image-classification) | Histogram of oriented gradients and HSV colour histograms, classified with a radial basis SVM | 7553 face photographs | Decide whether the face in a photograph is wearing a mask |
+| [Convolutional Neural Networks](convolutional-neural-networks) | Keras CNN of four convolutional blocks with global average pooling, data augmentation and best-epoch checkpointing | 7553 face photographs, 4600 portraits | Decide whether a face is wearing a mask, and whether a portrait shows a professional model or a common person |
 
 ## Running the notebooks
 
@@ -28,9 +29,9 @@ jupyter notebook
 
 Each notebook reads its dataset from its own folder, and falls back to the Colab
 `sample_data` path when it is not there, so it runs both locally and in Google
-Colab without editing anything. The one image collection is too large for a git
-repository, so its notebook downloads and unpacks it on the first run and skips the
-download afterwards.
+Colab without editing anything. The image collections are too large for a git
+repository, so their notebooks download and unpack them on the first run and skip
+the download afterwards.
 
 ## Author
 

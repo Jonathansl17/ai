@@ -10,3 +10,5 @@ joblib
 jupyter
 scikit-image
 pillow
+keras
+torch
