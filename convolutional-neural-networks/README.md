@@ -9,7 +9,7 @@ finding out which of the two the network is really using.
 | Notebook | Model | Data | Task |
 |---|---|---|---|
 | [`face-mask-cnn-classification.ipynb`](face-mask-cnn-classification.ipynb) | CNN of four convolutional blocks, global average pooling and one logit, 388 673 parameters | 7553 photographs of faces | Decide whether the face in a photograph is wearing a mask |
-| [`professional-model-face-classification.ipynb`](professional-model-face-classification.ipynb) | Same architecture on 112 by 112 inputs, with a best-epoch checkpoint | 4600 close-up portraits of women | Decide whether a portrait shows a professional model or a common person |
+| [`professional-model-face-classification.ipynb`](professional-model-face-classification.ipynb) | Same convolutional part on 112 by 112 inputs, ending in two softmax outputs, 388 930 parameters, with a best-epoch checkpoint | 4600 close-up portraits of women | Decide whether a portrait shows a professional model or a common person |
 
 ## Problem
 
@@ -23,10 +23,14 @@ what to measure.
 
 Both notebooks use the same network: four blocks of 3 by 3 convolutions with 32,
 64, 128 and 256 filters, ReLU, max pooling and dropout, then global average
-pooling, which reduces each of the 256 final feature maps to its mean, and a
-single output neuron with no activation. That neuron returns a logit, its
-weighted sum before any activation, and the loss is binary cross-entropy computed
-from it. The optimizer is Adam. Training photographs get data augmentation, a
+pooling, which reduces each of the 256 final feature maps to its mean. They
+differ only in the output layer, which shows the two standard ways of ending a
+binary classifier. The mask network has a single output neuron with no
+activation, which returns a logit, its weighted sum before any activation, and
+the loss is binary cross-entropy computed from it. The portrait network has one
+neuron per class with softmax, which turns the two sums into two probabilities
+that add up to 1, and it trains with categorical cross-entropy on one-hot labels,
+taking the class with the larger probability. The optimizer is Adam in both. Training photographs get data augmentation, a
 random crop and a random horizontal flip every time they enter a batch, and
 validation and test photographs always get the central crop.
 
@@ -53,8 +57,8 @@ the download when the folder is already there.
 |---|---|---|---|
 | Masks | Without a mask | 3828 | 50.7 % |
 | Masks | With a mask | 3725 | 49.3 % |
-| Portraits | Common person | 2150 | 50.0 % |
-| Portraits | Professional model | 2150 | 50.0 % |
+| Portraits | Common person | 2300 | 50.0 % |
+| Portraits | Professional model | 2300 | 50.0 % |
 
 The mask photographs range from 26 by 37 to 5760 by 5412 pixels and show faces
 alone, in crowds and next to product shots. The portraits are all 224 by 224 RGB
@@ -66,11 +70,11 @@ and 150 per class for validation and for test.
 | Metric | Masks | Portraits |
 |---|---|---|
 | Test photographs | 1133 | 300 |
-| Test accuracy | 0.9532 | 0.9767 |
-| Area under the ROC curve | 0.9902 | 0.9968 |
+| Test accuracy | 0.9532 | 0.9633 |
+| Area under the ROC curve | 0.9902 | 0.9969 |
 | Always answering the larger class | 0.5066 | 0.5000 |
-| Mistakes | 53 | 7 |
-| Last validation accuracy | 0.9744 | 0.9267 |
+| Mistakes | 53 | 11 |
+| Last validation accuracy | 0.9744 | 0.9233 |
 
 **Masks.** The network lets 23 of 574 uncovered faces through as covered, 4.0 %,
 the mistake the check exists to prevent, and stops 30 of 559 covered faces. The
@@ -89,24 +93,29 @@ with a median sharpness of 212.7 against 80.3, and a logistic regression that se
 only brightness, colour saturation and sharpness, with no face involved, already
 scores **0.8333** on the test photographs. The CNN goes clearly beyond that: on
 the 50 test photographs where those three traits point to the wrong class it is
-still right 0.9400 of the time. But 3 of its 7 mistakes fall in that group, which
-holds one test photograph in six, most mistakes are sharp snapshots taken as
-portraits or soft portraits taken as snapshots, and its activation maps light up
+still right 0.9400 of the time. But 3 of its 11 mistakes fall in that group,
+which holds one test photograph in six, most mistakes are soft, evenly lit
+portraits of models taken as snapshots, and its activation maps light up
 the border of the frame and part of the background as well as the face. The
 network learned the face and the camera together, and this data cannot separate
-them. The test score is also 5 points above the validation score, 15 photographs
-out of 300, so with parts this small the accuracy is only known to within a few
+them. The costly mistake for a casting filter, discarding a model, is also the
+more frequent one: 7 of 150 models against 4 of 150 common people taken as
+models. The test score is 4 points above the validation score, 12 photographs out
+of 300, so with parts this small the accuracy is only known to within a few
 points.
 
 In both cases the curves of training and validation rise together with no sign
-of overfitting, and in the portraits the best validation epoch was the last one,
-so the network had not finished improving.
+of overfitting. In the portraits the best validation accuracy came at epoch 27
+of 30 while the training loss was still falling, so the network had nearly but
+not fully finished improving.
 
 ## Techniques used
 
 Convolutional neural networks in Keras, with 3 by 3 convolutions, ReLU, max
-pooling, dropout, global average pooling and a single logit output trained with
-binary cross-entropy from logits and the Adam optimizer. Image loading and
+pooling, dropout, global average pooling, and two kinds of output layer: a single
+logit trained with binary cross-entropy from logits, and a softmax over one
+neuron per class trained with categorical cross-entropy on one-hot labels, both
+with the Adam optimizer. Image loading and
 resizing to a common frame, image tensors stored as 8 bit integers, average image
 per class and per-pixel difference maps, picture-quality traits (brightness,
 saturation and Laplacian sharpness) with a logistic regression baseline built on
